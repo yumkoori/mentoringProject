@@ -2,16 +2,19 @@ package com.yumkoori.mentoring.user.adapter.out.persistence;
 
 import com.yumkoori.mentoring.common.PersistenceAdapter;
 import com.yumkoori.mentoring.user.adapter.out.persistence.entity.EmailVerificationJpaEntity;
+import com.yumkoori.mentoring.user.application.port.out.LoadVerificationPort;
 import com.yumkoori.mentoring.user.application.port.out.SaveEmailVerificationPort;
 import com.yumkoori.mentoring.user.application.port.out.UpdateVerificationPort;
 import com.yumkoori.mentoring.user.domain.EmailVerification;
 import com.yumkoori.mentoring.user.domain.EmailVerification.verificationStatus;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
 public class EmailVerificationPersistenceAdapter
-        implements SaveEmailVerificationPort, UpdateVerificationPort {
+        implements SaveEmailVerificationPort, UpdateVerificationPort, LoadVerificationPort {
 
     private final SpringDataEmailVerificationRepository repository;
 
@@ -32,4 +35,12 @@ public class EmailVerificationPersistenceAdapter
 
     }
 
+    @Override
+    public Optional<EmailVerification> getEmailVerification(String email) {
+
+        EmailVerificationJpaEntity findJpaEntity = repository.findById(email)
+                .orElseThrow(()-> new NoSuchElementException("Not Found Verification"));
+
+        return Optional.of(PersistenceMapper.mapToVerificationDomain(findJpaEntity));
+    }
 }
