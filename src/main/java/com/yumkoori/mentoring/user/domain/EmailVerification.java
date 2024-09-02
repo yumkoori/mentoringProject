@@ -25,6 +25,9 @@ public class EmailVerification {
         return verification;
     }
 
+    public boolean isTrueVerification(String requestVerification) {
+        return requestVerification.equals(this.verification);
+    }
 
 
 }

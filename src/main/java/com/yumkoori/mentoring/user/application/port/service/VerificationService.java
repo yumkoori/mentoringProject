@@ -3,10 +3,14 @@ package com.yumkoori.mentoring.user.application.port.service;
 import com.yumkoori.mentoring.common.MentoringErrorCode;
 import com.yumkoori.mentoring.common.UseCase;
 import com.yumkoori.mentoring.user.application.port.in.VerificationUseCase;
+import com.yumkoori.mentoring.user.application.port.in.command.CheckVerificationCommand;
 import com.yumkoori.mentoring.user.application.port.in.command.RequestVerificationCommand;
+import com.yumkoori.mentoring.user.application.port.out.LoadVerificationPort;
 import com.yumkoori.mentoring.user.application.port.out.SaveEmailVerificationPort;
 import com.yumkoori.mentoring.user.application.port.out.LoadUserPort;
 import com.yumkoori.mentoring.user.domain.EmailVerification;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 @Slf4j
-public class VerificationService implements VerificationUseCase {
+public class VerificationService implements VerificationUseCase{
 
     private final LoadUserPort loadUserPort;
     private final SaveEmailVerificationPort saveEmailVerificationPort;
+    private final LoadVerificationPort loadVerificationPort;
 
     @Override
     public EmailVerification requestEmailVerification(RequestVerificationCommand command) {
@@ -39,13 +44,20 @@ public class VerificationService implements VerificationUseCase {
         log.info("인증 저장 성공 ");
 
         return emailVerification;
-
-
     }
 
 
     @Override
-    public boolean checkEmailVerification(RequestVerificationCommand verificationCommand) {
-        return false;
+    public boolean checkEmailVerification(CheckVerificationCommand verificationCommand) {
+
+        EmailVerification emailVerification = loadVerificationPort.getEmailVerification(
+                verificationCommand.getEmail()).orElseThrow(() ->
+                new VerificationException(MentoringErrorCode.VERIFICATION_NOT_EXIST));
+
+        if(!emailVerification.isTrueVerification(verificationCommand.getVerificationCode())) {
+            return false;
+        }
+
+        return true;
     }
 }
