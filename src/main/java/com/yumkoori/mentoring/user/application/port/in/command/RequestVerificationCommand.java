@@ -7,13 +7,13 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
 @Getter
-public class RequestVerficationCommand extends SelfValidating<RequestVerficationCommand> {
+public class RequestVerificationCommand extends SelfValidating<RequestVerificationCommand> {
 
     @NotBlank
     @Email
     private final String email;
 
-    public RequestVerficationCommand(String email) {
+    public RequestVerificationCommand(String email) {
         this.email = email;
 
         this.validateSelf();

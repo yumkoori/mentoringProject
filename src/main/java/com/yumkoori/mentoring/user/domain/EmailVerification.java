@@ -8,21 +8,23 @@ import lombok.RequiredArgsConstructor;
 public class EmailVerification {
 
     private final String email;
-    private final String verifyCation;
+    private final String verification;
 
     public EmailVerification(String email) {
         this.email = email;
-        this.verifyCation = this.createVerification();
+        this.verification = this.createVerification();
     }
 
     private String createVerification() {
-        String verifyCation = "";
+        String verification = "";
 
         for (int count = 0; count < 4; count++) {
-            verifyCation += (int) (Math.random() * 10);
+            verification += (int) (Math.random() * 10);
         }
 
-        return verifyCation;
+        return verification;
     }
+
+
 
 }
