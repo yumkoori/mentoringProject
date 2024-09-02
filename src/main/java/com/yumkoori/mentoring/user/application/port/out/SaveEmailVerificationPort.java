@@ -5,4 +5,5 @@ import com.yumkoori.mentoring.user.domain.EmailVerification;
 public interface SaveEmailVerificationPort {
 
     void saveVerification(EmailVerification emailVerification);
+    
 }

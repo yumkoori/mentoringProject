@@ -1,5 +1,8 @@
 package com.yumkoori.mentoring.user.adapter.out.persistence.entity;
 
+import static com.yumkoori.mentoring.user.domain.EmailVerification.*;
+
+import com.yumkoori.mentoring.user.domain.EmailVerification;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
@@ -25,13 +28,16 @@ public class EmailVerificationJpaEntity {
 
     private String verification;
 
+    private verificationStatus status;
+
     @CreatedDate
     @Timestamp
     private LocalDateTime createdAt;
 
-    public EmailVerificationJpaEntity(String email, String verifyCation) {
+    public EmailVerificationJpaEntity(String email, String verifyCation, verificationStatus status) {
         this.email = email;
         this.verification = verifyCation;
+        this.status = status;
     }
 
 }

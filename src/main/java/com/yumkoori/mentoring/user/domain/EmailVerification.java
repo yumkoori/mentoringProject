@@ -9,9 +9,11 @@ public class EmailVerification {
 
     private final String email;
     private final String verification;
+    private final verificationStatus status;
 
-    public EmailVerification(String email) {
+    public EmailVerification(String email, verificationStatus status) {
         this.email = email;
+        this.status = status;
         this.verification = this.createVerification();
     }
 
@@ -29,5 +31,10 @@ public class EmailVerification {
         return requestVerification.equals(this.verification);
     }
 
+    public enum verificationStatus {
+        PENDING,
+        VERIFIED,
+        EXPIRED
+    }
 
 }

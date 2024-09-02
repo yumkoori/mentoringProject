@@ -16,7 +16,7 @@ public class EmailVerificationPersistenceAdapter implements SaveEmailVerificatio
     public void saveVerification(EmailVerification emailVerification) {
 
         EmailVerificationJpaEntity emailVerificationJpaEntity =
-                new EmailVerificationJpaEntity(emailVerification.getEmail(), emailVerification.getVerifyCation());
+                new EmailVerificationJpaEntity(emailVerification.getEmail(), emailVerification.getVerification(), emailVerification.getStatus());
         repository.save(emailVerificationJpaEntity);
     }
 
