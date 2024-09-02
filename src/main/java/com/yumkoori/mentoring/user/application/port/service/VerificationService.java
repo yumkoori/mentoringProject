@@ -8,6 +8,7 @@ import com.yumkoori.mentoring.user.application.port.in.command.RequestVerificati
 import com.yumkoori.mentoring.user.application.port.out.LoadVerificationPort;
 import com.yumkoori.mentoring.user.application.port.out.SaveEmailVerificationPort;
 import com.yumkoori.mentoring.user.application.port.out.LoadUserPort;
+import com.yumkoori.mentoring.user.application.port.out.UpdateVerificationPort;
 import com.yumkoori.mentoring.user.domain.EmailVerification;
 import com.yumkoori.mentoring.user.domain.EmailVerification.verificationStatus;
 import java.util.NoSuchElementException;
@@ -25,6 +26,7 @@ public class VerificationService implements VerificationUseCase{
     private final LoadUserPort loadUserPort;
     private final SaveEmailVerificationPort saveEmailVerificationPort;
     private final LoadVerificationPort loadVerificationPort;
+    private final UpdateVerificationPort updateVerificationPort;
 
     @Override
     public EmailVerification requestEmailVerification(RequestVerificationCommand command) {
@@ -51,15 +53,19 @@ public class VerificationService implements VerificationUseCase{
     @Override
     public boolean checkEmailVerification(CheckVerificationCommand verificationCommand) {
 
+        //1. 인증 데이터가 존재하는지 조회
         EmailVerification emailVerification = loadVerificationPort.getEmailVerification(
                 verificationCommand.getEmail()).orElseThrow(() ->
                 new VerificationException(MentoringErrorCode.VERIFICATION_NOT_EXIST));
 
+        //2. 조회한 인증 데이터와 클라이언트의 입력 데이터가 일치하는지 확인
         if(!emailVerification.isTrueVerification(verificationCommand.getVerificationCode())) {
             return false;
         }
 
+        //3.일치하면, 인증정보 상태 변경
 
+        updateVerificationPort.setVerifiedStatus(emailVerification);
 
         return true;
     }
