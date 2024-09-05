@@ -22,7 +22,7 @@ public class SendEmailProvider {
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper messageHelper = new MimeMessageHelper(message, true);
 
-            String messageContent = getVerificationMessage(emailVerification.getVerifyCation());
+            String messageContent = getVerificationMessage(emailVerification.getVerification());
 
             messageHelper.setTo(emailVerification.getEmail());
             messageHelper.setSubject(SUBJECT);
