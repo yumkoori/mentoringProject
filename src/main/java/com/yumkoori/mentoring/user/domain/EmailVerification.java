@@ -9,11 +9,11 @@ public class EmailVerification {
 
     private final String email;
     private final String verification;
-    private final verificationStatus status;
+    private verificationStatus status;
 
-    public EmailVerification(String email, verificationStatus status) {
+    public EmailVerification(String email) {
         this.email = email;
-        this.status = status;
+        this.status = verificationStatus.PENDING;
         this.verification = this.createVerification();
     }
 

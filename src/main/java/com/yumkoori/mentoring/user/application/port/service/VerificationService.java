@@ -39,7 +39,7 @@ public class VerificationService implements VerificationUseCase{
 
         log.info("중복 검증 성공");
         //2. 인증 코드 생성
-        EmailVerification emailVerification = new EmailVerification(command.getEmail(), verificationStatus.PENDING);
+        EmailVerification emailVerification = new EmailVerification(command.getEmail());
         log.info("인증번호 생성 성공 = {}", emailVerification.getVerification());
 
         //3.이메일 인증서 저장

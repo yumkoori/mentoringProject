@@ -17,6 +17,6 @@ public class PersistenceMapper {
     }
 
     public static EmailVerification mapToVerificationDomain(EmailVerificationJpaEntity verificationJpaEntity) {
-        return new EmailVerification(verificationJpaEntity.getEmail(), verificationJpaEntity.getVerification(),verificationJpaEntity.getStatus());
+        return new EmailVerification(verificationJpaEntity.getEmail());
     }
 }
