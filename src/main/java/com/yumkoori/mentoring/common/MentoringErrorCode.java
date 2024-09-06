@@ -1,8 +1,10 @@
 package com.yumkoori.mentoring.common;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Getter
 public enum MentoringErrorCode {
 
     //10xx Common
