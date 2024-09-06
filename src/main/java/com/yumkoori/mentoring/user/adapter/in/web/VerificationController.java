@@ -13,11 +13,9 @@ import com.yumkoori.mentoring.user.domain.EmailVerification;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Adapter
@@ -35,7 +33,7 @@ public class VerificationController {
         log.info("진입 성공");
         RequestVerificationCommand command = new RequestVerificationCommand(request.getEmail());
 
-        EmailVerification emailVerification = verifiCationUseCase.requestEmailVerification(command);
+        EmailVerification emailVerification = verifiCationUseCase.createEmailVerification(command);
         log.info("verification = {}", emailVerification.getVerification());
 
         boolean isSendSuccess = sendEmailProvider.sendVerificationMail(emailVerification);

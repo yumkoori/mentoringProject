@@ -6,7 +6,7 @@ import com.yumkoori.mentoring.user.domain.EmailVerification;
 
 public interface VerificationUseCase {
 
-    EmailVerification requestEmailVerification(RequestVerificationCommand RequestCommand);
+    EmailVerification createEmailVerification(RequestVerificationCommand RequestCommand);
 
     boolean checkEmailVerification(CheckVerificationCommand verificationCommand);
 

@@ -29,8 +29,7 @@ public class VerificationService implements VerificationUseCase{
     private final UpdateVerificationPort updateVerificationPort;
 
     @Override
-    public EmailVerification requestEmailVerification(RequestVerificationCommand command) {
-
+    public EmailVerification createEmailVerification(RequestVerificationCommand command) {
 
         //1. email 중복 검증
         if (loadUserPort.existsByUserEmail(command.getEmail())) {
