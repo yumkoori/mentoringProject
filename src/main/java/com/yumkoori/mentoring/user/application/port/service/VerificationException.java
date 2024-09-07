@@ -3,12 +3,16 @@ package com.yumkoori.mentoring.user.application.port.service;
 import com.yumkoori.mentoring.common.MentoringErrorCode;
 import lombok.Getter;
 
-@Getter
 public class VerificationException extends RuntimeException{
 
-    private final MentoringErrorCode mentoringErrorCode;
+    private final MentoringErrorCode errorCode;
 
-    public VerificationException(MentoringErrorCode mentoringErrorCode) {
-        this.mentoringErrorCode = mentoringErrorCode;
+    public VerificationException(MentoringErrorCode errorCode) {
+        super(errorCode.getMessage());
+        this.errorCode = errorCode;
+    }
+
+    public MentoringErrorCode getErrorType() {
+        return errorCode;
     }
 }
