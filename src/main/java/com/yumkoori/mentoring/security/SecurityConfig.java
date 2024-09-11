@@ -1,4 +1,4 @@
-package com.yumkoori.mentoring.common;
+package com.yumkoori.mentoring.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -18,7 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @Configurable
 @RequiredArgsConstructor
-public class WebSecurityConfig {
+public class SecurityConfig {
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
