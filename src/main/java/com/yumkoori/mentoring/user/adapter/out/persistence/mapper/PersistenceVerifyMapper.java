@@ -1,4 +1,4 @@
-package com.yumkoori.mentoring.user.adapter.out.persistence;
+package com.yumkoori.mentoring.user.adapter.out.persistence.mapper;
 
 import com.yumkoori.mentoring.user.adapter.out.persistence.entity.EmailVerificationJpaEntity;
 import com.yumkoori.mentoring.user.domain.EmailVerification;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Getter
-public class PersistenceMapper {
+public class PersistenceVerifyMapper {
 
     public static EmailVerificationJpaEntity mapToVerificationJpaEntity(EmailVerification verificationDomain) {
         return new EmailVerificationJpaEntity(verificationDomain.getEmail(),

@@ -2,6 +2,7 @@ package com.yumkoori.mentoring.user.adapter.out.persistence;
 
 import com.yumkoori.mentoring.common.PersistenceAdapter;
 import com.yumkoori.mentoring.user.adapter.out.persistence.entity.EmailVerificationJpaEntity;
+import com.yumkoori.mentoring.user.adapter.out.persistence.mapper.PersistenceVerifyMapper;
 import com.yumkoori.mentoring.user.application.port.out.LoadVerificationPort;
 import com.yumkoori.mentoring.user.application.port.out.SaveEmailVerificationPort;
 import com.yumkoori.mentoring.user.application.port.out.UpdateVerificationPort;
@@ -41,6 +42,6 @@ public class EmailVerificationPersistenceAdapter
         EmailVerificationJpaEntity findJpaEntity = repository.findById(email)
                 .orElseThrow(()-> new NoSuchElementException("Not Found Verification"));
 
-        return Optional.of(PersistenceMapper.mapToVerificationDomain(findJpaEntity));
+        return Optional.of(PersistenceVerifyMapper.mapToVerificationDomain(findJpaEntity));
     }
 }
