@@ -3,6 +3,7 @@ package com.yumkoori.mentoring.user.domain;
 import com.yumkoori.mentoring.common.enums.AuthProvider;
 import com.yumkoori.mentoring.common.enums.UserRole;
 import com.yumkoori.mentoring.common.enums.UserStatus;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.time.ZonedDateTime;
 
 
 @RequiredArgsConstructor
+@Builder
 @Getter
 public class User {
     private final String email;
