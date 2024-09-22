@@ -1,11 +1,8 @@
 package com.yumkoori.mentoring.user.adapter.in.web.dto;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-@Getter
+@Data
 public class CheckVerificationDto {
 
     private String email;
