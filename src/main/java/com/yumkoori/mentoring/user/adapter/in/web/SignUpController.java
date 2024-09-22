@@ -5,13 +5,12 @@ import com.yumkoori.mentoring.common.WebAdapter;
 import com.yumkoori.mentoring.user.adapter.in.web.dto.SignupRequestForEmailDto;
 import com.yumkoori.mentoring.user.application.port.in.RegisterUserUseCase;
 import com.yumkoori.mentoring.user.application.port.in.command.RegisterUserCommand;
-import com.yumkoori.mentoring.user.application.port.in.command.RegisterUserCommand.RegisterUserCommandBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @WebAdapter
@@ -21,7 +20,7 @@ public class SignUpController {
 
     private final RegisterUserUseCase registerUserUseCase;
 
-    @PostMapping("/auth/signup")
+    @PostMapping("/auth/signup/email")
     public ResponseEntity<ResultDto<String>> signup_Email(@RequestBody SignupRequestForEmailDto request) {
         RegisterUserCommand registerCommand = RegisterUserCommand.builder()
                 .email(request.getEmail())
