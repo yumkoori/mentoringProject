@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.time.ZonedDateTime;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @NoArgsConstructor
@@ -19,6 +21,7 @@ import java.time.ZonedDateTime;
 @Data
 @Builder
 @Table(name = "user")
+@EntityListeners(AuditingEntityListener.class)
 public class UserJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,11 +42,19 @@ public class UserJpaEntity {
     @Enumerated(EnumType.STRING)
     private AuthProvider provider;
 
-    @Timestamp
     private ZonedDateTime createdAt;
-    @Timestamp
     private ZonedDateTime updatedAt;
-    @Timestamp
     private ZonedDateTime deletedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = ZonedDateTime.now();
+        this.updatedAt = ZonedDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = ZonedDateTime.now();
+    }
 
 }
