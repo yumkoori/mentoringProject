@@ -1,0 +1,41 @@
+<html layout:decorate="~{layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div layout:fragment="content" class="container my-3">
+
+    <div class="mb-3">
+      <label for="inputEmail" class="form-label">이메일</label>
+      <div class="input-group">
+        <input type="text" id="inputEmail" class="form-control" name="email"
+               th:value="${email}" th:attr="readonly=${email != null}">
+        <button id="requestVerification-btn" class="btn btn-outline-secondary" type="button"
+                th:text="${email == null} ? '인증코드 전송' : '재전송'"></button>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="inputVerification" class="form-label">인증코드</label>
+      <div class="input-group">
+        <input type="text" id="inputVerification" class="form-control" name="verificationCode"
+               th:value="${verificationCode}" th:attr="readonly=${verificationCode != null}">
+        <button id="checkVerification-btn" class="btn btn-outline-secondary" type="button"
+                th:text="${verificationCode == null} ? '인증 확인' : '인증 완료'"></button>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="inputPassword" class="form-label">비밀번호</label>
+      <input type="password" id="inputPassword" class="form-control">
+    </div>
+
+    <div class="mb-3">
+      <label for="inputNick" class="form-label">닉네임</label>
+      <div class="input-group">
+        <input type="text" id="inputNick" class="form-control">
+        <button class="btn btn-outline-secondary" type="button">중복 확인</button>
+      </div>
+    </div>
+
+    <button type="button" id="signup-btn" class="btn btn-outline-secondary">회원 가입</button>
+
+</div>
+<script src="/js/signupEmail.js"></script>
