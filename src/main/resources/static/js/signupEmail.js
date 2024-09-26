@@ -111,7 +111,7 @@ if (signupButton) {
     })
     .then(data => {
       alert('회원가입이 완료되었습니다.');
-      location.replace(`/auth/signup/home`);
+      location.replace(`/auth/login`);
     })
     .catch(error => {
       console.error('Error:', error);
