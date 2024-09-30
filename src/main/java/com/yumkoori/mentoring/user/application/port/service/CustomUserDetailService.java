@@ -19,10 +19,6 @@ public class CustomUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = loadUserPort.findByEmail(email);
 
-        return CustomUserDetails.builder()
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .build();
-
+        return new CustomUserDetails(user);
     }
 }

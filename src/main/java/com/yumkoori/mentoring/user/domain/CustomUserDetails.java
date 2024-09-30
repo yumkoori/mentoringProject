@@ -10,27 +10,25 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Builder
 public class CustomUserDetails implements UserDetails {
 
-    private final String email;
-    private final String password;
+    private User user;
 
-    public CustomUserDetails(String email, String password) {
-        this.email = email;
-        this.password = password;
+    public CustomUserDetails(User user) {
+        this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("MENTEE"));
+        return List.of(new SimpleGrantedAuthority(user.getRole().toString()));
     }
 
     @Override
     public String getPassword() {
-        return password;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return email;
+        return user.getEmail();
     }
 
     @Override
