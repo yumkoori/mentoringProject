@@ -42,12 +42,13 @@ public class SecurityConfig {
     protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
+                        .requestMatchers(//모두 허용
                                 new AntPathRequestMatcher("/auth/**")
                         ).permitAll()
-                        .requestMatchers("/main").hasAnyAuthority("MENTEE")
-                        .anyRequest().authenticated())
-
+                        .requestMatchers(//인증된 사용자만 허용
+                                new AntPathRequestMatcher("/main")
+                        ).authenticated()
+                )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/auth/login")
                         .defaultSuccessUrl("/main")
@@ -85,7 +86,6 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", corsConfiguration);
 
         return source;
-
     }
 
     @Bean
