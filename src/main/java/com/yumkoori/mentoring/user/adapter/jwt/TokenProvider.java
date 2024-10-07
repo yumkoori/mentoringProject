@@ -1,6 +1,7 @@
 package com.yumkoori.mentoring.user.adapter.jwt;
 
 import com.yumkoori.mentoring.common.Adapter;
+import com.yumkoori.mentoring.user.application.port.out.TokenProviderPort;
 import com.yumkoori.mentoring.user.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
@@ -17,7 +18,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @RequiredArgsConstructor
 @Adapter
-public class TokenProvider {
+public class TokenProvider implements TokenProviderPort {
 
     private final JwtProperties jwtProperties;
 
