@@ -18,6 +18,12 @@ public class UserPersistenceAdapter implements LoadUserPort, SaveUserPort {
     private final SpringDataUserRepository repository;
 
     @Override
+    public User getByUserId(Long userId) {
+        UserJpaEntity userJpaEntity = repository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+        return PersistenceUserMapper.mapToUser(userJpaEntity);
+    }
+
+    @Override
     public boolean existsByUserEmail(String email) {
         return repository.existsByEmail(email);
     }

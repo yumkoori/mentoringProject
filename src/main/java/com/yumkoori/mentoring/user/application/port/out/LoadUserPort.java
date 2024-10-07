@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface LoadUserPort {
 
+    User getByUserId(Long userId);
     boolean existsByUserEmail(String email);
-
     User findByEmail(String email);
 }
