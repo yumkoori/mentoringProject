@@ -10,10 +10,13 @@ import com.yumkoori.mentoring.user.application.port.in.command.CreateAccessToken
 import com.yumkoori.mentoring.user.application.port.in.command.LoginCommand;
 import com.yumkoori.mentoring.user.application.port.out.PasswordEncoderPort;
 import com.yumkoori.mentoring.user.domain.User;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +30,7 @@ public class LoginController {
     private final TokenServiceUseCase tokenServiceUseCase;
 
     @PostMapping("/auth/login-email")
-    public ResponseEntity<ResultDto<LoginResponseDto>> login(@RequestBody LoginRequestDto request) {
+    public ResponseEntity<ResultDto<LoginResponseDto>> login(@ModelAttribute LoginRequestDto request, HttpServletResponse response) {
 
         LoginCommand loginCommand = new LoginCommand(request.getEmail(), request.getPassword());
 
@@ -40,8 +43,19 @@ public class LoginController {
         String newAccessToken = tokenServiceUseCase.createNewAccessToken(createAccessTokenCommand);
         String newRefreshToken = tokenServiceUseCase.createNewRefreshToken(createAccessTokenCommand);
 
-        System.out.println(newRefreshToken);
-        System.out.println(newRefreshToken);
+        //쿠키 응답
+        Cookie accessTokenCookie = new Cookie("accessToken", newAccessToken);
+        accessTokenCookie.setHttpOnly(false);
+        accessTokenCookie.setPath("/");         //임시로 모든 경로에 쿠키 설정
+        accessTokenCookie.setMaxAge(60 * 60);
+
+        Cookie refreshTokenCookie = new Cookie("refreshToken", newRefreshToken);
+        refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setPath("/");
+        refreshTokenCookie.setMaxAge(10* 60 * 60);
+
+        response.addCookie(accessTokenCookie);
+        response.addCookie(refreshTokenCookie);
 
         ResultDto<LoginResponseDto> result =
                 new ResultDto<>(
