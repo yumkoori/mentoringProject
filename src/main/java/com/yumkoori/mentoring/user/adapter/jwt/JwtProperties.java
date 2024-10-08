@@ -1,4 +1,4 @@
-package com.yumkoori.mentoring.config;
+package com.yumkoori.mentoring.user.adapter.jwt;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

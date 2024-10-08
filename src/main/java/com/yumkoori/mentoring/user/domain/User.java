@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 @Builder
 @Getter
 public class User {
+    private final Long id;
     private final String email;
     private final String password;
     private final String nick;
